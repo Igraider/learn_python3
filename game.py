@@ -154,7 +154,7 @@ class Cooker_Room(Scene):
                 next_level_poison = 1
 
         elif dead_poison == 3:
-            tp_poison = randint(1, 3)
+            tp_poison = randint(1, 2)
             if tp_poison == 1:
                 next_level_poison = 2
             elif tp_poison == 2:
