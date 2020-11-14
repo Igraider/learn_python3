@@ -255,7 +255,7 @@ class Rabbit_Room(Scene):
                 print("Ты решил ему дать свой фрукт, ему он очень понравился.")
                 print("Его глаза стали зелеными.")
                 print("Он разрешил тебе пройти дальше...")
-                #rabbit_kind = True
+                rabbit_kind = True
                 return 'wall'
 
         elif gun == True:
