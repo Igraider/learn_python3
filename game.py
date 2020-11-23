@@ -4,9 +4,9 @@ from random import randint
 import random
 
 
-gun = False
-fruit = False
-rabbit_kind = False
+gun = "false"
+fruit = "false"
+rabbit_kind = "false"
 
 class Scene(object):
 
@@ -207,19 +207,19 @@ class Sailer_Room(Scene):
         choice = input('> ')
         if choice == "1":
             print("Ты взял с собой автомат.")
-            gun = True
+            gun = "true"
             input()
             return "rabbit"
 
         elif choice == "2":
             print("Ты взял с собой апельсин.")
-            fruit = True
+            fruit = "true"
             input()
             return "rabbit"
 
         elif choice == "3":
             print("Ты взял с собой яблоко.")
-            fruit = True
+            fruit = "true"
             input()
             return "rabbit"
 
@@ -233,7 +233,8 @@ class Rabbit_Room(Scene):
     def enter(self):
         print("В следующей комнате ты встретил КРОЛИКА-МУТАНТА с красными глазами!")
         time.sleep(2)
-        if fruit == True:
+        print(fruit)
+        if fruit == "true":
             print("Варианты действий:")
             print("1. Попробовать пробежать в другую комнату.")
             print("2. Попробовать поговорить с ним.")
@@ -255,10 +256,10 @@ class Rabbit_Room(Scene):
                 print("Ты решил ему дать свой фрукт, ему он очень понравился.")
                 print("Его глаза стали зелеными.")
                 print("Он разрешил тебе пройти дальше...")
-                #rabbit_kind = True
+                rabbit_kind = "true"
                 return 'wall'
 
-        elif gun == True:
+        elif gun == "true":
             print("Варианты действий:")
             print("1. Попробовать пробежать в другую комнату.")
             print("2. Попробовать поговорить с ним.")
