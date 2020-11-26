@@ -207,18 +207,21 @@ class Sailer_Room(Scene):
         choice = input('> ')
         if choice == "1":
             print("Ты взял с собой автомат.")
+            global gun
             gun = "true"
             input()
             return "rabbit"
 
         elif choice == "2":
             print("Ты взял с собой апельсин.")
+            global fruit
             fruit = "true"
             input()
             return "rabbit"
 
         elif choice == "3":
             print("Ты взял с собой яблоко.")
+            global fruit
             fruit = "true"
             input()
             return "rabbit"
@@ -233,7 +236,6 @@ class Rabbit_Room(Scene):
     def enter(self):
         print("В следующей комнате ты встретил КРОЛИКА-МУТАНТА с красными глазами!")
         time.sleep(2)
-        print(fruit)
         if fruit == "true":
             print("Варианты действий:")
             print("1. Попробовать пробежать в другую комнату.")
@@ -256,6 +258,7 @@ class Rabbit_Room(Scene):
                 print("Ты решил ему дать свой фрукт, ему он очень понравился.")
                 print("Его глаза стали зелеными.")
                 print("Он разрешил тебе пройти дальше...")
+                global rabbit_kind
                 rabbit_kind = "true"
                 return 'wall'
 
