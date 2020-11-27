@@ -4,10 +4,6 @@ from random import randint
 import random
 
 
-gun = "false"
-fruit = "false"
-rabbit_kind = "false"
-
 class Scene(object):
 
     def enter(self):
@@ -169,11 +165,11 @@ class Cooker_Room(Scene):
         print("1. Фиолетовое.")
         print("2. Синее.")
         print("3. Зеленое.")
+        print("hhhhhhhhhh",dead_poison)
+        print("tp", tp_poison)
         choice = int(input('> '))
         time.sleep(2)
-
-        print(next_level_poison)
-         
+        
         if choice == dead_poison:
             print("Ты выбрал смертельное зелье.")
             input()
@@ -181,8 +177,14 @@ class Cooker_Room(Scene):
 
         elif choice == tp_poison:
             print("Ты заснул...")
+            keys = (Map.scenes.keys())
+            key = random.choice([keys])
+            dict_kys = random.choice([key])
+            right_key = (dict_kys)
+            print(right_key)
             input()
-            return random.choice(Map.scenes)
+
+            return right_key
 
         elif choice == next_level_poison:
             print("Это было хорошее зелье.")
@@ -197,6 +199,8 @@ class Cooker_Room(Scene):
 class Sailer_Room(Scene):
 
     def enter(self):
+        global fruit
+        global gun
         print("Ты встретил человека полу-призрака, он спросил:")
         time.sleep(2)
         print("Что ты возьмешь с собой в дорогу?")
@@ -207,22 +211,19 @@ class Sailer_Room(Scene):
         choice = input('> ')
         if choice == "1":
             print("Ты взял с собой автомат.")
-            global gun
-            gun = "true"
+            gun = True
             input()
             return "rabbit"
 
         elif choice == "2":
             print("Ты взял с собой апельсин.")
-            global fruit
-            fruit = "true"
+            fruit = True
             input()
             return "rabbit"
 
         elif choice == "3":
             print("Ты взял с собой яблоко.")
-            global fruit
-            fruit = "true"
+            fruit = True
             input()
             return "rabbit"
 
@@ -234,9 +235,10 @@ class Sailer_Room(Scene):
 class Rabbit_Room(Scene):
 
     def enter(self):
+        global rabbit_kind
         print("В следующей комнате ты встретил КРОЛИКА-МУТАНТА с красными глазами!")
         time.sleep(2)
-        if fruit == "true":
+        if fruit == True:
             print("Варианты действий:")
             print("1. Попробовать пробежать в другую комнату.")
             print("2. Попробовать поговорить с ним.")
@@ -258,11 +260,11 @@ class Rabbit_Room(Scene):
                 print("Ты решил ему дать свой фрукт, ему он очень понравился.")
                 print("Его глаза стали зелеными.")
                 print("Он разрешил тебе пройти дальше...")
-                global rabbit_kind
-                rabbit_kind = "true"
+                rabbit_kind = True
+                input()
                 return 'wall'
 
-        elif gun == "true":
+        elif gun == True:
             print("Варианты действий:")
             print("1. Попробовать пробежать в другую комнату.")
             print("2. Попробовать поговорить с ним.")
@@ -286,6 +288,28 @@ class Rabbit_Room(Scene):
                 print("Как выяснилось ему не страшны пули, ты сделал его только злее...")
                 input()
                 return 'dead'
+            
+        else:
+            print("Варианты действий:")
+            print("1. Попробовать пробежать в другую комнату.")
+            print("2. Попробовать поговорить с ним.")
+            choice3 = input("> ")
+            time.sleep(1)
+            if choice3 == "1":
+                time.sleep(1)
+                print("Ты решил побежать в другую комнату.")
+                time.sleep(2)
+                print("Видно ты не учел его размеров.")
+                return 'dead'
+            elif choice3 == "2":
+                time.sleep(1)
+                print("Кролики-мутанты не разговариют, поэтому...")
+                time.sleep(1)
+                return "dead"
+            else:
+                print("Ты ничего не решил...")
+                input()
+                return "dead"
 
 
 
@@ -293,8 +317,55 @@ class Rabbit_Room(Scene):
 class Wall(Scene):
 
     def enter(self):
-        pass
+        waiting = 0
+        def back_to_rabbit():
+            input()
+            print("Ты пошел к кролику.")
+            time.sleep(1)
+            print("Ты позвал его помочь разрушить стену")
+            time.sleep(2)
+            print("Он слегка ударил, и она разрушилась.")
+            time.sleep(2)
+            print("Ты сказал ему 'спасибо' и пошел дальше.")
+            input()
+            return "chest"
 
+        def bitting():
+            print("Ты решил попробовать ее разбить.")
+            time.sleep(2)
+            print("Ты ударил по ледяной стене, и на тебя упала глыба...")
+            input()
+            return "dead"
+
+        print("В следующей комнате ты увидел ледяной барьер.")
+        time.sleep(3)
+        print("Что будешь делать?")
+        time.sleep(1)
+        print("1. Подождать, вдруг расстает.")
+        print("2. Попробовать разломать.")
+        print("3. Вернуться к кролику.")
+        choice = input("> ")
+        if choice == "1":
+            print("Ты решил подождать.")
+            while waiting != 5:
+                print("Ничего не произошло.")
+                waiting += 1
+                print("Что будешь делать?")
+                time.sleep(1)
+                print("1. Подождать, вдруг расстает.")
+                print("2. Попробовать разломать.")
+                print("3. Вернуться к кролику.")
+                choice2 = input("> ")
+                if choice2 == "1":
+                    print()
+                elif choice2 == "2":
+                    bitting()
+                    break
+                elif choice2 == "3":
+                    back_to_rabbit()
+                    break
+
+                    
 class Chest(Scene):
 
     def enter(self):
@@ -329,6 +400,10 @@ class Map(object):
     def openning_scene(self):
         return self.value_of_scene(self.start_scene)
 
-a_map = Map("start")
+gun = False
+fruit = False
+rabbit_kind = False
+
+a_map = Map("cooker")
 a_game = Engine(a_map)
 a_game.play()
