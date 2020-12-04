@@ -1,5 +1,6 @@
 import time
 from sys import exit
+import pyglet
 
 class scene(object):
 
@@ -13,6 +14,7 @@ class your_room(object):
         print("Похоже я уснул. Уже почти полночь.")
         time.sleep(3)
         print("*Звук падения металла*")
+        song.play()
         time.sleep(1)
         print("Что это такое?")
         time.sleep(2)
@@ -344,7 +346,8 @@ class map(object):
     def opening_scene(self):
         return self.value_of_scene(self.start_scene)
 
-
+song = pyglet.media.load("C:\\Users\\Ната\\Downloads\\Sound_03093.mp3")
+pyglet.app.run
 a_map = map('room')
 a_game = engine(a_map)
 a_game.play()

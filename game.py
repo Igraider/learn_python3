@@ -165,8 +165,6 @@ class Cooker_Room(Scene):
         print("1. Фиолетовое.")
         print("2. Синее.")
         print("3. Зеленое.")
-        print("hhhhhhhhhh",dead_poison)
-        print("tp", tp_poison)
         choice = int(input('> '))
         time.sleep(2)
         
@@ -177,14 +175,9 @@ class Cooker_Room(Scene):
 
         elif choice == tp_poison:
             print("Ты заснул...")
-            keys = (Map.scenes.keys())
-            key = random.choice([keys])
-            dict_kys = random.choice([key])
-            right_key = (dict_kys)
-            print(right_key)
+            right_key = randint(1, len(list((Map.scenes).keys())))
             input()
-
-            return right_key
+            return str(keys[right_key-1])
 
         elif choice == next_level_poison:
             print("Это было хорошее зелье.")
