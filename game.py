@@ -17,6 +17,7 @@ class Dead(Scene):
         "Бывает..."]
 
     def enter(self):
+        time.sleep(1)
         print()
         print("Ты умер.")
         print(random.choice(Dead.deaths))
@@ -382,8 +383,41 @@ class Wall(Scene):
 class Chest(Scene):
 
     def enter(self):
-        pass
+        def opening():
+            time.sleep(1)
+            print("Ты начал открывать его как вдруг,")
+            time.sleep(2)
+            print("Cундук открылся, и высунулась большая пасть!")
+            time.sleep(2)
+            print("Это был мимик!")
+            return "dead"
 
+        time.sleep(2)
+        print("В этой комнате стоял золотой сундук.")
+        print("Что делать?")
+        print("1. Поискать к нему ключ.")
+        print("2. Пойти в следующую комнату.")
+        print("3. Попробовать открыть его...")
+        choice = input("> ")
+        if choice == "1":
+            time.sleep(3)
+            print("Ты ничего не нашел.")
+            time.sleep(1)
+            print("Что делать?")
+            time.sleep(1)
+            print("1. Пойти в следующую комнату.")
+            print("2. Попробовать открыть его...") 
+            choice2 = input("> ")
+            if choice2 == "1":
+                return "boss"
+            elif choice2 == "2":
+                opening()
+        elif choice == "2":
+            return "boss"
+        elif choice == "3":
+            opening()  
+
+            
 class BOSS(Scene):
 
     def enter(self):
