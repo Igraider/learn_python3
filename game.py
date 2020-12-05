@@ -311,8 +311,11 @@ class Rabbit_Room(Scene):
 class Wall(Scene):
 
     def enter(self):
-        waiting = 0
+
         def wait():
+            global waiting
+            global choice3
+            waiting = 0
             print("Ты решил подождать.")
             while waiting != 5:
                 print("Ничего не произошло.")
@@ -323,8 +326,13 @@ class Wall(Scene):
                 print("1. Подождать, вдруг расстает.")
                 print("2. Попробовать разломать.")
                 print("3. Вернуться к кролику.")
-            print("К сожалению тебе очень хотелось есть")
-            return "dead"
+                choice3 = input("> ")
+                if choice3 == "2" or choice3 == "3":
+                    break
+                
+            if waiting == 5:
+                print("К сожалению тебе очень хотелось есть")
+            
             
         def back_to_rabbit():
             input()
@@ -355,14 +363,14 @@ class Wall(Scene):
             choice = input("> ")
             if choice == "1":
                 wait()
-                choice2 = input("> ")
-                if choice2 == "1":
-                    print()
-                elif choice2 == "2":
+                if choise3 == "2":
                     bitting()
-                elif choice2 == "3":
-                    print("Нажмите (Enter)")
+                    return "dead"
+                elif choice3 == "1":
+                    return "dead"
+                elif choice3 == "3":
                     back_to_rabbit()
+                    return "chest"
                     
             elif choice == "2":
                 bitting()
@@ -377,7 +385,16 @@ class Wall(Scene):
             choice = input("> ")
             if choice == "1":
                 wait()
-                
+                if choice3 == "1":
+                    return "dead"
+                elif choice3 == "2":
+                    bitting()
+                    return "dead"
+                elif choice3 == "3":
+                    print("Тебя встречает огромный заяц - мутант!")
+                    time.sleep(2)
+                    print("Он тебя съел...")
+                    return "dead"
             elif choice == "2":
                 bitting()
                 return 'dead'
@@ -416,7 +433,8 @@ class Chest(Scene):
         elif choice == "2":
             return "boss"
         elif choice == "3":
-            opening()  
+            opening()
+            return "dead"  
 
             
 class BOSS(Scene):
@@ -452,6 +470,6 @@ gun = False
 fruit = False
 rabbit_kind = False
 
-a_map = Map("wall")
+a_map = Map("start")
 a_game = Engine(a_map)
 a_game.play()
