@@ -323,39 +323,9 @@ class Wall(Scene):
                 print("1. Подождать, вдруг расстает.")
                 print("2. Попробовать разломать.")
                 print("3. Вернуться к кролику.")
-                choice2 = input("> ")
-                if choice2 == "1":
-                    print()
-                elif choice2 == "2":
-                    bitting()
-                    break
-                elif choice2 == "3":
-                    print("Нажмите (Enter)")
-                    back_to_rabbit()
-                    break
             print("К сожалению тебе очень хотелось есть")
             return "dead"
-        def choosing():
-            if rabbit_kind == True:
-                print("1. Подождать, вдруг расстает.")
-                print("2. Попробовать разломать.")
-                print("3. Вернуться к кролику.")
-                choice = input("> ")
-                if choice == "1":
-                    wait()
-                elif choice == "2":
-                    bitting()
-                elif choice == "3":
-                    print("Нажмите (Enter)")
-                    back_to_rabbit()
-            else:
-                print("1. Подождать, вдруг расстает.")
-                print("2. Попробовать разломать.")
-                choice = input("> ")
-                if choice == "1":
-                    wait()
-                elif choice == "2":
-                    bitting()
+            
         def back_to_rabbit():
             input()
             print("Ты пошел к кролику.")
@@ -366,20 +336,51 @@ class Wall(Scene):
             time.sleep(2)
             print("Ты сказал ему 'спасибо' и пошел дальше.")
             input()
-            return "chest"
+            
 
         def bitting():
             print("Ты решил попробовать ее разбить.")
             time.sleep(2)
             print("Ты ударил по ледяной стене, и на тебя упала глыба...")
             input()
-            return "dead"
 
         print("В следующей комнате ты увидел ледяной барьер.")
         time.sleep(3)
         print("Что будешь делать?")
         time.sleep(1)
-        choosing()
+        if rabbit_kind == True:
+            print("1. Подождать, вдруг расстает.")
+            print("2. Попробовать разломать.")
+            print("3. Вернуться к кролику.")
+            choice = input("> ")
+            if choice == "1":
+                wait()
+                choice2 = input("> ")
+                if choice2 == "1":
+                    print()
+                elif choice2 == "2":
+                    bitting()
+                elif choice2 == "3":
+                    print("Нажмите (Enter)")
+                    back_to_rabbit()
+                    
+            elif choice == "2":
+                bitting()
+                return "dead"
+            elif choice == "3":
+                print("Нажмите (Enter)")
+                back_to_rabbit()
+                return "chest"
+        else:
+            print("1. Подождать, вдруг расстает.")
+            print("2. Попробовать разломать.")
+            choice = input("> ")
+            if choice == "1":
+                wait()
+                
+            elif choice == "2":
+                bitting()
+                return 'dead'
 class Chest(Scene):
 
     def enter(self):
@@ -390,9 +391,8 @@ class Chest(Scene):
             print("Cундук открылся, и высунулась большая пасть!")
             time.sleep(2)
             print("Это был мимик!")
-            return "dead"
-
-        time.sleep(2)
+            
+        time.sleep(1)
         print("В этой комнате стоял золотой сундук.")
         print("Что делать?")
         print("1. Поискать к нему ключ.")
@@ -412,6 +412,7 @@ class Chest(Scene):
                 return "boss"
             elif choice2 == "2":
                 opening()
+                return "dead"
         elif choice == "2":
             return "boss"
         elif choice == "3":
@@ -421,7 +422,7 @@ class Chest(Scene):
 class BOSS(Scene):
 
     def enter(self):
-        pass
+        print()
 
 class Map(object):
 
@@ -435,7 +436,7 @@ class Map(object):
         "wall" : Wall(),
         "chest" : Chest(),
         "boss" : BOSS(),
-        "dead" : Dead(),
+        "dead" : Dead()
     }
 
     def __init__(self, start_scene):
@@ -451,6 +452,6 @@ gun = False
 fruit = False
 rabbit_kind = False
 
-a_map = Map("rabbit")
+a_map = Map("wall")
 a_game = Engine(a_map)
 a_game.play()
