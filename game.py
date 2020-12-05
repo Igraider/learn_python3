@@ -114,7 +114,7 @@ class Killer_Room(Scene):
             time.sleep(2)
             print("Если убить убийцу, количество убийц не изменится.")
             time.sleep(3)
-            print("Он так смеялся, что решил тебя оставить в живых.")
+            print("Он так смеялся, что решил оставить тебя в живых.")
             time.sleep(2)
             print("Ты пошел дальше...")
             input()
@@ -252,7 +252,7 @@ class Rabbit_Room(Scene):
             elif choice == "3":
                 print("Ты решил ему дать свой фрукт, ему он очень понравился.")
                 print("Его глаза стали зелеными.")
-                print("Он разрешил тебе пройти дальше...")
+                print("Он разрешил пройти дальше...")
                 rabbit_kind = True
                 input()
                 return 'wall'
@@ -311,6 +311,50 @@ class Wall(Scene):
 
     def enter(self):
         waiting = 0
+        def wait():
+            print("Ты решил подождать.")
+            while waiting != 5:
+                print("Ничего не произошло.")
+                waiting += 1
+                print("Что будешь делать?")
+                time.sleep(1)
+                print()
+                print("1. Подождать, вдруг расстает.")
+                print("2. Попробовать разломать.")
+                print("3. Вернуться к кролику.")
+                choice2 = input("> ")
+                if choice2 == "1":
+                    print()
+                elif choice2 == "2":
+                    bitting()
+                    break
+                elif choice2 == "3":
+                    print("Нажмите (Enter)")
+                    back_to_rabbit()
+                    break
+            print("К сожалению тебе очень хотелось есть")
+            return "dead"
+        def choosing():
+            if rabbit_kind == True:
+                print("1. Подождать, вдруг расстает.")
+                print("2. Попробовать разломать.")
+                print("3. Вернуться к кролику.")
+                choice = input("> ")
+                if choice == "1":
+                    wait()
+                elif choice == "2":
+                    bitting()
+                elif choice == "3":
+                    print("Нажмите (Enter)")
+                    back_to_rabbit()
+            else:
+                print("1. Подождать, вдруг расстает.")
+                print("2. Попробовать разломать.")
+                choice = input("> ")
+                if choice == "1":
+                    wait()
+                elif choice == "2":
+                    bitting()
         def back_to_rabbit():
             input()
             print("Ты пошел к кролику.")
@@ -334,31 +378,7 @@ class Wall(Scene):
         time.sleep(3)
         print("Что будешь делать?")
         time.sleep(1)
-        print("1. Подождать, вдруг расстает.")
-        print("2. Попробовать разломать.")
-        print("3. Вернуться к кролику.")
-        choice = input("> ")
-        if choice == "1":
-            print("Ты решил подождать.")
-            while waiting != 5:
-                print("Ничего не произошло.")
-                waiting += 1
-                print("Что будешь делать?")
-                time.sleep(1)
-                print("1. Подождать, вдруг расстает.")
-                print("2. Попробовать разломать.")
-                print("3. Вернуться к кролику.")
-                choice2 = input("> ")
-                if choice2 == "1":
-                    print()
-                elif choice2 == "2":
-                    bitting()
-                    break
-                elif choice2 == "3":
-                    back_to_rabbit()
-                    break
-
-                    
+        choosing()
 class Chest(Scene):
 
     def enter(self):
@@ -397,6 +417,6 @@ gun = False
 fruit = False
 rabbit_kind = False
 
-a_map = Map("cooker")
+a_map = Map("rabbit")
 a_game = Engine(a_map)
 a_game.play()
