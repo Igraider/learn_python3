@@ -178,7 +178,9 @@ class Cooker_Room(Scene):
             print("Ты заснул...")
             right_key = randint(1, len(list((Map.scenes).keys())))
             input()
-            return str(keys[right_key-1])
+            if right_key == 3:
+                return "cooker"
+            return str(list(Map.scenes)[right_key-1])
 
         elif choice == next_level_poison:
             print("Это было хорошее зелье.")
@@ -265,13 +267,13 @@ class Rabbit_Room(Scene):
             print("3. Попробовать убить его из автомата.")
             choice2 = input("> ")
             time.sleep(1)
-            if choice == "1":
+            if choice2 == "1":
                 time.sleep(1)
                 print("Ты решил побежать в другую комнату.")
                 time.sleep(2)
                 print("Видно ты не учел его размеров.")
                 return 'dead'
-            elif choice == "2":
+            elif choice2 == "2":
                 time.sleep(1)
                 print("Кролики-мутанты не разговариют, поэтому...")
                 time.sleep(1)
@@ -363,7 +365,7 @@ class Wall(Scene):
             choice = input("> ")
             if choice == "1":
                 wait()
-                if choise3 == "2":
+                if choiсe3 == "2":
                     bitting()
                     return "dead"
                 elif choice3 == "1":
@@ -440,7 +442,16 @@ class Chest(Scene):
 class BOSS(Scene):
 
     def enter(self):
-        print()
+        print("Это похоже финальная комната.")
+        time.sleep(2)
+        print("Ты увидел какого - то ниндзю!")
+        time.sleep(1)
+        print("**ПРЕДУПРЕЖДЕНИЕ: ОЧЕНЬ СЛОЖНЫЙ УРОВЕНЬ!!!**")
+        input()
+        print("Думать придется быстро очень быстро!!")
+        
+
+        
 
 class Map(object):
 
