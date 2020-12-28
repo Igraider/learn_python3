@@ -318,7 +318,7 @@ class Wall(Scene):
             global choice3
             waiting = 0
             print("Ты решил подождать.")
-            while waiting != 5:
+            while waiting != 4:
                 print("Ничего не произошло.")
                 waiting += 1
                 print("Что будешь делать?")
@@ -331,7 +331,7 @@ class Wall(Scene):
                 if choice3 == "2" or choice3 == "3":
                     break
                 
-            if waiting == 5:
+            if waiting == 4:
                 print("К сожалению тебе очень хотелось есть")
             
             
@@ -402,6 +402,7 @@ class Wall(Scene):
 class Chest(Scene):
 
     def enter(self):
+
         def opening():
             time.sleep(1)
             print("Ты начал открывать его как вдруг,")
@@ -441,6 +442,26 @@ class Chest(Scene):
 class BOSS(Scene):
 
     def enter(self):
+
+        def finish():
+            input()
+            print("Ты победил поздравляю!!!")
+        
+        def bit():
+            global good_bit
+            global choice_bit
+            print("Надо что - то сделать!")
+            time.sleep(1)
+            print("1. Ударить его по морде!")
+            print("2. Ударить его в живот!")
+            print("3. Дальше уклоняться.")
+            choice_bit = int(input("> "))
+            good_bit = randint(1,2)
+            if choice_bit == good_bit:
+                print("Ты правильно сделал!")
+            else:
+                print("Нидзя перехватил инициативу и убил тебя!")
+
         
         def surikens():
             global direction
@@ -459,7 +480,7 @@ class BOSS(Scene):
                 input()
             else:
                 print("Он в тебя попал!")
-
+        global bad_evasion
         print("Это похоже финальная комната.")
         time.sleep(2)
         print("Ты увидел какого - то ниндзю!")
@@ -504,7 +525,6 @@ class BOSS(Scene):
 ```````````''''''-----'-----'""")
 
         input()
-        time.sleep(1)
         print("Он достал длинный меч, тебе хана!!")
         time.sleep(1)
         print("Он замахнулся и...\nКуда уклонится?")
@@ -513,22 +533,31 @@ class BOSS(Scene):
         if good_evasion == 1:
             bad_evasion = 2
         elif good_evasion == 2:
-            bad_evasion == 1
+            bad_evasion = 1
         print("1. Налево")
         print("2. Направо")
         evasion = int(input("> "))
-        if evasion == good_evasion and evasion == 1:
+        if evasion == good_evasion and good_evasion == 1:
             print("Тебе повезло он ударил вправо!")
             time.sleep(1)
             surikens()
             if direction != "1":
                 return "dead"
-        elif evasion == good_evasion and evasion == 2:
+            bit()
+            if choice_bit != good_bit:
+                return "dead"
+            finish()
+        elif evasion == good_evasion and good_evasion == 2:
             print("Тебе повезло он ударил влево")
             time.sleep(1)
             surikens()
             if direction != "1":
                 return "dead"
+            bit()
+            if choice_bit != good_bit:
+                return "dead"
+            finish()
+            
         elif evasion == bad_evasion:
             print("Ты уклонился просто ужасно!")
             return "dead"
@@ -566,6 +595,6 @@ gun = False
 fruit = False
 rabbit_kind = False
 
-a_map = Map("boss")
+a_map = Map("start")
 a_game = Engine(a_map)
 a_game.play()
