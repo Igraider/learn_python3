@@ -149,7 +149,7 @@ while True:
                     print('Ничья!')
                     break
                 else:
-                    turn = 'Компьютер'
+                    turn = 'Человек'
     print('Сыграем еще раз?')
     if not input().lower().startswith('д'):
         break    
