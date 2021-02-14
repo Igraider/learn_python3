@@ -69,15 +69,19 @@ while run:
             run = False  
     
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and x > speed:
+    if keys[pygame.K_LEFT]:
         x -= speed
         left = True
         right = False
+        if x < 0:
+            x = 0
 
-    elif keys[pygame.K_RIGHT] and x < 1280 - width - 5:
+    elif keys[pygame.K_RIGHT]:
         x += speed
         left = False
         right = True
+        if x > screen_width - width:
+            x = screen_width - width
     
     else:
         left = False
