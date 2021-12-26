@@ -4,5 +4,7 @@ def makeint(m):
         m = int(m)
     except ValueError:
         m = 0
-    return m
+    finally:
+        print('hello')
+    return m * 5
 print(makeint(s))
